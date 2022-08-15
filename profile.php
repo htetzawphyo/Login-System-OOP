@@ -1,11 +1,10 @@
 <?php
 
-    session_start();
+include "vendor/autoload.php";
 
-    if(!isset($_SESSION['user'])){
-        header('location: index.php');
-        exit();
-    }
+use Helpers\Auth;
+
+$auth = Auth::check();
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +19,12 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-3">Yusuke (Web Developer)</h1>
+        <h1 class="mt-5 mb-5">
+            <?= $auth->name ?>
+            <span class="fw-normal text-muted">
+                (<?= $auth->role ?>)
+            </span>
+        </h1>
 
         <?php if(isset($_GET['error'])) : ?>
             <div class="alert alert-warning">
@@ -28,10 +32,10 @@
             </div>
         <?php endif ?>
 
-        <?php if(file_exists('_actions/photos/profile.jpg')) : ?>
+        <?php if($auth->photo) : ?>
             <img 
             class = "mb-3 img-thumbnail"
-            src = "_actions/photos/profile.jpg" 
+            src = "_actions/photos/<?= $auth->photo ?>" 
             alt = "Profile Photo" width="200">
         <?php endif ?>
 
@@ -44,17 +48,18 @@
 
         <ul class="list-group">
             <li class="list-group-item">
-                <b>Email: </b>yusuke@gmail.com
+                <b>Email: </b><?= $auth->email ?>
             </li>
             <li class="list-group-item">
-                <b>Phone: </b>09-752725727
+                <b>Phone: </b><?= $auth->phone ?>
             </li>
             <li class="list-group-item">
-                <b>Address: </b>Bla, Bla State
+                <b>Address: </b><?= $auth->address ?>
             </li>
         </ul>
         <br>
 
+        <a href="admin.php">Manage Users</a> |
         <a href="_actions/logout.php">Logout</a>
     </div>
 </body>

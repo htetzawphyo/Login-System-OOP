@@ -1,0 +1,16 @@
+{
+    "name": "hzp/login_system_oop",
+    "authors": [
+        {
+            "name": "Htet Zaw Phyo"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Libs\\": "_classes/Libs/",
+            "Helpers\\": "_classes/Helpers/",
+            "Create\\": "_actions"
+        }
+    }
+}

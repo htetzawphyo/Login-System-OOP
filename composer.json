@@ -10,7 +10,8 @@
         "psr-4": {
             "Libs\\": "_classes/Libs/",
             "Helpers\\": "_classes/Helpers/",
-            "Create\\": "_actions"
+            "Create\\": "_actions/",
+            "Shal\\": "_classes/Helpers/"
         }
     }
 }

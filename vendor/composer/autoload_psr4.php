@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Shal\\' => array($baseDir . '/_classes/Helpers'),
     'Libs\\' => array($baseDir . '/_classes/Libs'),
     'Helpers\\' => array($baseDir . '/_classes/Helpers'),
     'Create\\' => array($baseDir . '/_actions'),

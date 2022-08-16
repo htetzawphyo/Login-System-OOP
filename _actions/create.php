@@ -6,8 +6,11 @@ use Libs\Database\MySQL;
 use Libs\Database\UsersTable;
 use Helpers\HTTP;
 
-if($_GET['csrf'] === $_SESSION['csrf'])
-{
+$table = new UsersTable(new MySQL() );
+
+if($_POST['csrf'] !== $_SESSION['csrf']){
+    HTTP::redirect("/register.php", "error=true");
+}
     if(isset($_POST)){
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -18,6 +21,10 @@ if($_GET['csrf'] === $_SESSION['csrf'])
         {
             HTTP::redirect("/register.php", "valiError=true");
         }else {
+            $user = $table->findByEmail($email);
+            if($user->email == $email) {
+                HTTP::redirect("/register.php", "emailError=true");
+            }
             $data = [
                 "name" => $name ?? 'Unknown',
                 "email" => $email ?? 'Unknown',
@@ -37,7 +44,7 @@ if($_GET['csrf'] === $_SESSION['csrf'])
             }
         }
     }
-}
+
 
 
 

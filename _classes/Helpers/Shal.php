@@ -1,7 +1,16 @@
 <?php
-namespace Shal;
-session_start();
+namespace Helpers;
+// session_start();
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
 
-$token = bin2hex(openssl_random_pseudo_bytes(32));
+class Shal
+{
+    public $token;
 
-$_SESSION['csrf'] = $token;
+    public function __construct(){
+        $this->token = sha1(rand(1, 1000) . 'csrf secret');
+        $_SESSION['csrf'] = $this->token;
+    }
+}

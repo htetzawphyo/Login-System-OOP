@@ -1,5 +1,9 @@
 <?php
+session_start();
 include "vendor/autoload.php";
+use Helpers\Shal;
+
+$shal = new Shal;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,9 +37,14 @@ include "vendor/autoload.php";
                 Please fill all infomation.
             </div>
         <?php endif ?>
+        <?php if (isset($_GET['emailError'])) : ?>
+            <div class="alert alert-warning">
+                This email is taken. Try another.
+            </div>
+        <?php endif ?>
 
         <form action="_actions/create.php" method="post">
-            <input type="hidden" name="csrf" value="<?= $token ?>">
+            <input type="hidden" name="csrf" value="<?= $shal->token ?>">
             <input type="text" name="name" placeholder="Name"  class="form-control mb-2" requred>
 
             <input type="email" name="email" class="form-control mb-2" placeholder="Email" requred>

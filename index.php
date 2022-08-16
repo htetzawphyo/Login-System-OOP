@@ -1,3 +1,10 @@
+<?php 
+session_start();
+include "vendor/autoload.php";
+use Helpers\Shal;
+
+$shal = new Shal;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +26,12 @@
     <div class="wrap">
         <h1 class="h3 mb-3">Login</h1>
 
+        <?php if (isset($_GET['csrf'])) : ?>
+            <div class="alert alert-warning">
+                Csrf Error.
+            </div>
+        <?php endif ?>
+
         <?php if (isset($_GET['registered'])) : ?>
             <div class="alert alert-success">
                 Account created. Please login.
@@ -38,7 +51,7 @@
         <?php endif ?>
 
         <form action="_actions/login.php" method="post">
-            <input type="hidden" name="csrf" value="<?= $token ?>">
+            <input type="hidden" name="csrf" value="<?= $shal->token ?>">
             <input type="email" name="email" class="form-control mb-2" placeholder="Email">
             <input type="password" name="password" class="form-control mb-2" placeholder="Password">
 

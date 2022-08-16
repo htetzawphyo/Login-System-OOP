@@ -2,7 +2,7 @@
 
 namespace Helpers;
 
-class HTMLSpecialChars
+class HTMLSpecial
 {
     public function h($content) {
         return htmlspecialchars($content);
